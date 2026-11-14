@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Программа Эко-Центра «Здоровый Дом»</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Светлая тема */
+            --bg-color: #f4f7f6;
+            --text-color: #2c3e50;
+            --primary-color: #1a5e4f;
+            --accent-color: #c5a059;
+            --card-bg: #ffffff;
+            --border-color: #e0e6e4;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            --time-color: #1a5e4f;
+            --table-stripe: #f9fbfb;
+            --warning-bg: #fff3e0;
+            --warning-border: #ffb74d;
+            --warning-text: #e65100;
+            --font-main: 'Montserrat', sans-serif;
+            --font-heading: 'Playfair Display', serif;
+        }
+
+        [data-theme="dark"] {
+            /* Темная тема */
+            --bg-color: #121815;
+            --text-color: #d1d8d5;
+            --primary-color: #4db6a0;
+            --accent-color: #d4af37;
+            --card-bg: #1c2420;
+            --border-color: #2a3530;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            --time-color: #d4af37;
+            --table-stripe: #232d28;
+            --warning-bg: #3e2723;
+            --warning-border: #ffb74d;
+            --warning-text: #ffcc80;
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            font-size: 16px;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            box-shadow: var(--shadow);
+            padding: 2rem 1rem;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            font-family: var(--font-heading);
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .address {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: 2px solid var(--border-color);
+            color: var(--text-color);
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: var(--font-main);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        section {
+            margin-bottom: 3rem;
+        }
+
+        h2 {
+            font-family: var(--font-heading);
+            color: var(--primary-color);
+            font-size: 2rem;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+        }
+
+        p, ul, ol {
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .highlight-box {
+            background-color: var(--card-bg);
+            border-left: 4px solid var(--accent-color);
+            padding: 1.5rem;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .warning-box {
+            background-color: var(--warning-bg);
+            border-left: 4px solid var(--warning-border);
+            padding: 1.5rem;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 1.5rem;
+            color: var(--warning-text);
+        }
+
+        .warning-box h3 {
+            color: var(--warning-text);
+            margin-top: 0;
+        }
+
+        /* Стили для расписания */
+        .week-title {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1.4rem;
+            margin: 2rem 0 1rem 0;
+            text-align: center;
+        }
+
+        .day-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .day-header {
+            background-color: var(--table-stripe);
+            padding: 0.8rem 1.5rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .day-content {
+            padding: 1rem 1.5rem;
+        }
+
+        .schedule-item {
+            display: flex;
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .schedule-item:last-child {
+            border-bottom: none;
+        }
+
+        .time {
+            min-width: 140px;
+            font-weight: 600;
+            color: var(--time-color);
+        }
+
+        .activity {
+            flex: 1;
+        }
+
+        .activity strong {
+            color: var(--primary-color);
+        }
+
+        .final-day {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .final-day h3 {
+            color: white;
+            margin-top: 0;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .final-day p {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Адаптивность для мобильных */
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8rem; }
+            .theme-toggle { top: 10px; right: 10px; padding: 5px 10px; font-size: 0.8rem; }
+            .schedule-item { flex-direction: column; padding: 0.8rem 0; }
+            .time { margin-bottom: 0.3rem; color: var(--accent-color); }
+            .card, .highlight-box, .warning-box { padding: 1rem; }
+            .day-content { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">
+            <span id="themeIcon">🌙</span> <span id="themeText">Тёмная тема</span>
+        </button>
+        <h1>Программа Эко-Центра «Здоровый Дом»</h1>
+        <div class="subtitle">Девиз: «Работаем на результат. Мы не лечим. Мы восстанавливаем».</div>
+        <div class="address">📍 Адрес: г. Сочи, Адлер, ул. Банановая, 10а</div>
+    </header>
+
+    <main>
+        <section id="philosophy">
+            <h2>1. Философия и система</h2>
+            <div class="highlight-box">
+                <p>Наш центр работает по авторской системе комплексного подхода к организму: <strong>Диагностика → Регуляция → Восстановление → Контроль динамики</strong>.</p>
+                <p>Здоровье — это не разовая процедура, а система. В течение 21 дня гости проходят полный цикл: от глубокой оценки состояния тела до закрепления новых полезных привычек, правильного питания и физической активности.</p>
+            </div>
+        </section>
+
+        <section id="nutrition">
+            <h2>2. Организация питания и приема продукции FOHOW</h2>
+            <div class="card">
+                <p><strong>Питание и нутрицевтики — это два параллельных процесса, которые дополняют друг друга!</strong></p>
+                <ul>
+                    <li><strong>Основное питание (3–4 раза в день):</strong> Гостям предоставляется полноценное, сбалансированное меню в эко-центре. Это свежие местные продукты, богатые белком, клетчаткой и витаминами (по принципам долгожителей Бама).</li>
+                    <li><strong>Нутрицевтическая поддержка FOHOW (в дополнение к пище):</strong> После первичной диагностики специалист назначает индивидуальную схему приема продукции. Бады принимаются <strong>во время или после еды</strong> (запивая водой), либо в перерывах между приемами пищи для регуляции клеток и организма.</li>
+                </ul>
+                <h4>Схема приема (назначается индивидуально):</h4>
+                <ul>
+                    <li><em>Для очищения:</em> Эликсир «Саньцин», чай «Лювей», напиток «Fito-ChangQing».</li>
+                    <li><em>Для восстановления клеток и энергии:</em> Капсулы «Молодость Плюс», эликсир «Три драгоценности», эликсир «Феникс».</li>
+                    <li><em>Для поддержки сосудов:</em> Капсулы «Сюэчинфу».</li>
+                    <li><em>Для микрофлоры:</em> Пробиотики «Active ProBio».</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="diagnostics">
+            <h2>3. Диагностика (на 1-й и 20-й день)</h2>
+            <div class="card">
+                <ul>
+                    <li><strong>ГРВ-скрининг:</strong> оценка психоэмоционального и физиологического состояния.</li>
+                    <li><strong>Капилляроскоп:</strong> оценка микромира капилляров (увеличение 380х).</li>
+                    <li><strong>Ангиоскан:</strong> анализ жесткости сосудов и артериального давления.</li>
+                    <li><strong>Биоимпеданс FOHOW:</strong> полный анализ состава тела (жир, мышцы, вода, висцеральный жир).</li>
+                </ul>
+                <p><em>По итогам:</em> Составляется «Паспорт здоровья» и индивидуальный протокол питания, тренировок и процедур.</p>
+            </div>
+        </section>
+
+        <section id="rhythm">
+            <h2>4. Ежедневный ритм и чередование процедур</h2>
+            <div class="highlight-box">
+                <ul>
+                    <li><strong>Каждый день:</strong> Утренняя зарядка, дыхательная гимнастика, кардио или силовая тренировка.</li>
+                    <li><strong>Через день (по расписанию):</strong>
+                        <ul>
+                            <li><em>День А:</em> Мануальные и аппаратные процедуры (массажи, ТИМ-капсула, SPA-уходы).</li>
+                            <li><em>День Б:</em> Аппараты компании FOHOW (БЭМ — Биоэнергомассажер, РЭМ — ручной энергомассаж, остеопатия). <strong>Важно: сеанс БЭМ длится до 1 часа.</strong></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="recommendations">
+            <h2>5. Рекомендации по духовному настрою и физическому воздействию</h2>
+            <div class="card">
+                <h4>Духовный настрой и Разум:</h4>
+                <p>Проводить семинары 2–3 раза в неделю, вечера ароматерапии и аудиотерапии, медитации, вечерний просмотр комедий для создания позитива, утренние сеансы мотивационных фильмов. Чтение книг, развитие, изучение нового, передача знаний и обучение их применению в своей жизни.</p>
+                
+                <h4>Физическое воздействие на тело:</h4>
+                <ul>
+                    <li>2–3 массажа в неделю достаточно.</li>
+                    <li>Время ручного массажа на начальном этапе — не более 15 минут.</li>
+                    <li>Сеанс БЭМ (биоэнергомассажера) длится <strong>до 1 часа</strong>.</li>
+                    <li>Кардиотренировка длится от одного часа и более с интенсивностью 4–6 км/ч.</li>
+                    <li>Силовая тренировка длится не более часа.</li>
+                    <li>1 поездка на выездную баню, 2–3 похода к морю.</li>
+                    <li><strong>Растяжка на первой неделе:</strong> к ней стоит отнестись с особенным вниманием. Необходим постоянный контроль за каждым действием клиента во избежание травматизма.</li>
+                    <li><strong>Вторая и третья недели:</strong> продолжительность ручного массажа увеличиваем до 20–25 минут. Увеличиваем нагрузку на силовых тренировках посредством повышения количества повторов и подходов (а для подготовленных людей — увеличением веса снаряда). Продолжительность и интенсивность на кардиотренажерах оставляем без изменений.</li>
+                </ul>
+                <p><em>Примечание:</em> 2-ю и 3-ю недели можно оставить как есть или перемешать дни (например, 1-й день 1-й недели на следующей неделе может стать 10-м днем, а не 8-м по списку).</p>
+
+                <h4>Съемки 24/7:</h4>
+                <p>На всем этапе курса реабилитации и построения нового тела идут съемки в режиме 24/7. Работает оператор, который снимает весь материал, выбирает самые лучшие моменты, монтирует видео и может показать его в виде фильма или серии видеороликов.</p>
+            </div>
+        </section>
+
+        <section id="roadmap">
+            <h2>Дорожная карта 21 дня</h2>
+
+            <!-- НЕДЕЛЯ 1 -->
+            <div class="week-title">Неделя 1: Очищение и адаптация (Запуск)</div>
+            
+            <div class="day-card">
+                <div class="day-header">День 1 (День заезда)</div>
+                <div class="day-content">
+                    <div class="schedule-item"><div class="time">12:00 – 14:00</div><div class="activity">Встреча, размещение.</div></div>
+                    <div class="schedule-item"><div class="time">14:00 – 15:00</div><div class="activity">Обед.</div></div>
+                    <div class="schedule-item"><div class="time">15:00 – 17:30</div><div class="activity">Первичная диагностика (ГРВ, Биоимпеданс). Знакомство с центром.</div></div>
+                    <div class="schedule-item"><div class="time">18:00 – 19:00</div><div class="activity">Ужин.</div></div>
+                    <div class="schedule-item"><div class="time">19:30 – 21:00</div><div class="activity">Ознакомительная встреча. Представление программы, выдача индивидуальных схем приема FOHOW.</div></div>
+                </div>
+            </div>
+
+            <div class="day-card">
+                <div class="day-header">День 2</div>
+                <div class="day-content">
+                    <div class="schedule-item"><div class="time">06:30 – 07:30</div><div class="activity">Подъем. Дыхательная гимнастика и настрой на оптимизм.</div></div>
+                    <div class="schedule-item"><div class="time">07:30 – 08:30</div><div class="activity">Завтрак.</div></div>
+                    <div class="schedule-item"><div class="time">09:30 – 11:00</div><div class="activity">Кардиотренировка (4–6 км/ч).</div></div>
+                    <div class="schedule-item"><div class="time">12:00 – 13:00</div><div class="activity">Обед.</div></div>
+                    <div class="schedule-item"><div class="time">14:00 – 16:00</div><div class="activity"><strong>Процедуры День А:</strong> ТИМ-капсула + расслабляющий массаж (15 мин).</div></div>
+                    <div class="schedule-item"><div class="time">16:00 – 18:00</div><div class="activity">Свободное время, отдых.</div></div>
+                    <div class="schedule-item"><div class="time">18:00 – 19:00</div><div class="activity">Ужин.</div></div>
+                    <div class="schedule-item"><div class="time">20:00 – 21:30</div><div class="activity">Вечерний сбор. Разбор диагностики, лекция о питании.</div></div>
+                </div>
+            </div>
+
+            <div class="day-card">
+                <div class="day-header">День 3</div>
+                <div class="day-content">
+                    <div class="schedule-item"><div class="time">06:30 – 07:30</div><div class="activity">Подъем. Дыхательная гимнастика.</div></div>
+                    <div class="schedule-item"><div class="time">07:30 – 08:30</div><div class="activity">Завтрак.</div></div>
+                    <div class="schedule-item"><div class="time">09:30 – 11:30</div><div class="activity">Кардиотренировка + чтение книг.</div></div>
+                    <div class="schedule-item"><div class="time">12:00 – 13:00</div><div class="activity">Обед.</div></div>
+                    <div class="schedule-item"><div class="time">14:00 – 15:00</div><div class="activity"><strong>Процедуры День Б:</strong> БЭМ (открытие спины, до 1 часа) + РЭМ.</div></div>
+                    <div class="schedule-item"><div class="time">15:00 – 16:00</div><div class="activity">Свободное время / отдых.</div></div>
+                    <div class="schedule-item"><div class="time">16:00 – 18:00</div><div class="activity">Поездка к морю. Терренкур, талассо- и аэрофитотерапия.</div></div>
+                    <div class="schedule-item"><div class="time">18:00 – 19:00</div><div class="activity">Ужин.</div></div>
+                    <div class="schedule-item"><div class="time">19:00 – 21:00</div><div class="activity">Гидротерапия с ароматерапией и аффирмациями.</div></div>
+                </div>
+            </div>
+
+            <div class="day-card">
+                <div class="day-header">День 4</div>
+                <div class="day-content">
+                    <div class="schedule-item"><div class="time">06:30 – 07:30</div><div class="activity">Подъем. Дыхательная гимнастика.</div></div>
+                    <div class="schedule-item"><div class="time">07:30 – 08:30</div><div class="activity">Завтрак.</div></div>
+                    <div class="schedule-item"><div class="time">09:30 – 11:00</div><div class="activity">Кардиотренировка.</div></div>
+                    <div class="schedule-item"><div class="time">12:00 – 13:00</div><div class="activity">Обед.</div></div>
+                    <div class="schedule-item"><div class="time">14:00 – 16:00</div><div class="activity"><strong>Процедуры День А:</strong> Массаж лица FOHOW + ТИМ-капсула.</div></div>
+                    <div class="schedule-item"><div class="time">16:00 – 17:30</div><div class="activity">Силовая тренировка на улице (до 1 часа).</div></div>
+                    <div class="schedule-item"><div class="time">18:00 – 19:00</div><div class="activity">Ужин.</div></div>
+                    <div class="schedule-item"><div class="time">19:30 – 21:30</div><div class="activity">Мотивационный фильм.</div></div>
+                </div>
+            </div>
+
+            <div class="day-card">
+                <div class="day-header">День 5</div>
+                <div class="day-content">
+                    <div class="schedule-item"><div class="time">06:30 – 07:30</div><div class="activity">Подъем. Дыхательная гимнастика.</div></div>
+                    <div class="schedule-item"><div class="time">07:30 – 08:30</div><div class="activity">Завтрак.</div></div>
+                    <div class="schedule-item"><div class="time">09:30 – 11:00</div><div class="activity">Кардиотренировка.</div></div>
+                    <div class="schedule-item"><div class="time">12:00 – 13:00</div><div class="activity">Обед.</div></div>
+                    <div class="schedule-item"><div class="time">14:00 – 15:00</div><div class="activity"><strong>Процедуры День Б:</strong> БЭМ (регуляция ЖКТ, до 1 часа) + РЭМ.</div></div>
+                    <div class="schedule-item"><div class="time">15:00 – 16:00</div><div class="activity">Свободное время.</div></div>
+                    <div class="schedule-item"><div class="time">16:00 – 17:00</div><div class="activity">Урок самомассажа.</div></div>
+                    <div class="schedule-item"><div class="time">18:00 – 19:00</div><div class="activity">Ужин.</div></div>
+                    <div class="schedule-item"><div class="time">19:00 – 22:00</div><div class="activity">Экскурсия по вечернему Сочи.</div></div>
+                </div>
+            </div>
+
+            <div class="day-card">
+                <div class="day-header">День 6</div>
+                <div class="day-content">
+                    <div class="schedule-item"><div class="time">06:30 – 07:30</div><div class="activity">Подъем. Дыхательная гимнастика.</div></div>
+                    <div class="schedule-item"><div class="time">07:30 – 08:30</div><div class="activity">Завтрак.</div></div>
+                    <div class="schedule-item"><div class="time">09:00 – 18:00</div><div class="activity"><strong>Выездная баня на море</strong> (с обедом).</div></div>
+                    <div class="schedule-item"><div class="time">19:00 – 20:00</div><div class="activity">Ужин в эко-центре.</div></div>
+                    <div class="schedule-item"><div class="time">20:00 – 22:00</div><div class="activity">Просмотр комедии.</div></div>
+                </div>
+            </div>
+
+            <div class="day-card">
+                <div class="day-header">День 7</div>
+                <div class="day-content">
+                    <div class="schedule-item"><div class="time">06:30 – 07:30</div><div class="activity">Подъем. Дыхательная гимнастика.</div></div>
+                    <div class="schedule-item"><div class="time">07:30 – 08:30</div><div class="activity">Завтрак.</div></div>
+                    <div class="schedule-item"><div class="time">09:30 – 11:00</div><div class="activity">Кардиотренировка.</div></div>
+                    <div class="schedule-item"><div class="time">12:00 – 13:00</div><div class="activity">Обед.</div></div>
+                    <div class="schedule-item"><div class="time">14:00 – 15:00</div><div class="activity">Силовая тренировка на улице (до 1 часа).</div></div>
+                    <div class="schedule-item"><div class="time">15:00 – 17:00</div><div class="activity"><strong>Процедуры День А:</strong> Восстанавливающий массаж + водные процедуры.</div></div>
+                    <div class="schedule-item"><div class="time">18:00 – 19:00</div><div class="activity">Ужин.</div></div>
+                    <div class="schedule-item"><div class="time">20:00 – 21:30</div><div class="activity">Общее собрание. Итоги первой недели.</div></div>
+                </div>
+            </div>
+
+            <!-- НЕДЕЛЯ 2 -->
+            <div class="week-title">Неделя 2: Регуляция и укрепление (Повышение нагрузки)</div>
+
+            <div class="day-card">
+                <div class="day-header">День 8</div>
+                <div class="day-content">
+                    <div class="schedule-item"><div class="time">06:30 – 07:30</div><div class="activity">Подъем. Дыхательная гимнастика.</div></div>
+                    <div class="schedule-item"><div class="time">07:30 – 08:30</div><div class="activity">Завтрак.</div></div>
+                    <div class="schedule-item"><div class="time">09:30 – 11:30</div><div class="activity">Кардиотренировка.</div></div>
+                    <div class="schedule-item"><div class="time">12:00 – 13:00</div><div class="activity">Обед.</div></div>
+                    <div class="schedule-item"><div class="time">14:00 – 15:00</div><div class="activity"><strong>Процедуры День Б:</strong> БЭМ (регуляция сосудов, до 1 часа).</div></div>
+                    <div class="schedule-item"><div class="time">15:00 – 17:00</div><div class="activity">Растяжка, свободное время.</div></div>
+                    <div class="schedule-item"><div class="time">18:00 – 19:00</div><div class="activity">Ужин.</div></div>
+                    <div class="schedule-item"><div class="time">19:00 – 21:00</div><div class="activity">Вечер комедий.</div></div>
+                </div>
+            </div>
+
+            <div class="day-card">
+                <div class="day-header">День 9</div>
+                <div class="day-content">
+                    <div class="schedule-item"><div class="time">06:30 – 07:30</div><div class="activity">Подъем. Дыхательная гимнастика.</div></div>
+                    <div class="schedule-item"><div class="time">07:30 – 08:30</div><div class="activity">Завтрак.</div></div>
+                    <div class="schedule-item"><div class="time">09:30 – 11:00</div><div class="activity">Кардиотренировка.</div></div>
+                    <div class="schedule-item"><div class="time">12:00 – 13:00</div><div class="activity">Обед.</div></div>
+                    <div class="schedule-item"><div class="time">14:00 – 16:00</div><div class="activity"><strong>Процедуры День А:</strong> ТИМ-капсула + Массаж лица FOHOW (увеличение времени процедур по показаниям).</div></div>
+                    <div class="schedule-item"><div class="time">16:30 – 18:30</div><div class="activity">Поездка к морю. Тренировка на берегу.</div></div>
+                    <div class="schedule-item"><div class="time">19:00 – 20:00</div><div class="activity">Ужин.</div></div>
+                    <div class="schedule-item"><div class="time">20:00 – 21:30</div><div class="activity">Беседа на тему здоровья и успеха.</div></div>
+                </div>
+            </div>
+
+            <div class="day-card">
+                <div class="day-header">День 10</div>
+                <div class="day-content">
+                    <div class="schedule-item"><div class="time">06:30 – 07:30</div><div class="activity">Подъем. Дыхательная гимнастика.</div></div>
+                    <div class="schedule-item"><div class="time">07:30 – 08:30</div><div class="activity">Завтрак.</div></div>
+                    <div class="schedule-item"><div class="time">09:30 – 11:00</div><div class="activity">Кардиотренировка.</div></div>
+                    <div class="schedule-item"><div class="time">12:00 – 13:00</div><div class="activity">Обед.</div></div>
+                    <div class="schedule-item"><div class="time">14:00 – 15:00</div><div class="activity">Силовая тренировка (увеличение подходов/повторов).</div></div>
+                    <div class="schedule-item"><div class="time">15:00 – 16:00</div><div class="activity"><strong>Процедуры День Б:</strong> БЭМ (печень/желчный пузырь, до 1 часа) + РЭМ.</div></div>
+                    <div class="schedule-item"><div class="time">18:00 – 19:00</div><div class="activity">Ужин.</div></div>
+                    <div class="schedule-item"><div class="time">20:00 – 21:30</div><div class="activity">Прогулка по Адлеру.</div></div>
+                </div>
+            </div>
+
+            <div class="day-card">
+                <div class="day-header">День 11</div>
+                <div class="day-content">
+                    <div class="schedule-item"><div class="time">06:30 – 07:30</div><div class="activity">Подъем. Дыхательная гимнастика.</div></div>
+                    <div class="schedule-item"><div class="time">07:30 – 08:30</div><div class="activity">Завтрак.</div></div>
+                    <div class="schedule-item"><div class="time">09:30 – 11:30</div><div class="activity">Кардиотренировка + изучение писаний.</div></div>
+                    <div class="schedule-item"><div class="time">12:00 – 13:00</div><div class="activity">Обед.</div></div>
+                    <div class="schedule-item"><div class="time">14:00 – 15:30</div><div class="activity"><strong>Процедуры День А:</strong> Остеопатия (по записи) или ТИМ-капсула.</div></div>
+                    <div class="schedule-item"><div class="time">16:00 – 18:00</div><div class="activity">Поход на море, купание.</div></div>
+                    <div class="schedule-item"><div class="time">18:00 – 19:00</div><div class="activity">Ужин.</div></div>
+                    <div class="schedule-item"><div class="time">19:30 – 21:30</div><div class="activity">Гидротерапия, ароматерапия.</div></div>
+                </div>
+            </div>
+
+            <div class="day-card">
+                <div class="day-header">День 12</div>
+                <div class="day-content">
+                    <div class="schedule-item"><div class="time">06:30 – 07:30</div><div class="activity">Подъем. Дыхательная гимнастика.</div></div>
+                    <div class="schedule-item"><div class="time">07:30 – 08:30</div><div class="activity">Завтрак.</div></div>
+                    <div class="schedule-item"><div class="time">09:30 – 11:00</div><div class="activity">Кардиотренировка.</div></div>
+                    <div class="schedule-item"><div class="time">12:00 – 13:00</div><div class="activity">Обед.</div></div>
+                    <div class="schedule-item"><div class="time">14:00 – 15:00</div><div class="activity"><strong>Процедуры День Б:</strong> БЭМ (коррекция фигуры, до 1 часа) + РЭМ.</div></div>
+                    <div class="schedule-item"><div class="time">16:00 – 18:00</div><div class="activity">Тренировка на берегу моря.</div></div>
+                    <div class="schedule-item"><div class="time">18:30 – 19:30</div><div class="activity">Ужин.</div></div>
+                    <div class="schedule-item"><div class="time">20:00 – 21:30</div><div class="activity">Дружеский вечер историй.</div></div>
+                </div>
+            </div>
+
+            <div class="day-card">
+                <div class="day-header">День 13</div>
+                <div class="day-content">
+                    <div class="schedule-item"><div class="time">06:30 – 07:30</div><div class="activity">Подъем. Дыхательная гимнастика.</div></div>
+                    <div class="schedule-item"><div class="time">07:30 – 08:30</div><div class="activity">Завтрак.</div></div>
+                    <div class="schedule-item"><div class="time">09:00 – 18:00</div><div class="activity"><strong>Выездная баня на море/речку</strong> (с обедом).</div></div>
+                    <div class="schedule-item"><div class="time">19:00 – 20:00</div><div class="activity">Ужин.</div></div>
+                    <div class="schedule-item"><div class="time">20:00 – 22:00</div><div class="activity">Свободное время.</div></div>
+                </div>
+            </div>
+
+            <div class="day-card">
+                <div class="day-header">День 14</div>
+                <div class="day-content">
+                    <div class="schedule-item"><div class="time">06:30 – 07:30</div><div class="activity">Подъем. Дыхательная гимнастика.</div></div>
+                    <div class="schedule-item"><div class="time">07:30 – 08:30</div><div class="activity">Завтрак.</div></div>
+                    <div class="schedule-item"><div class="time">09:30 – 11:00</div><div class="activity">Кардиотренировка.</div></div>
+                    <div class="schedule-item"><div class="time">12:00 – 13:00</div><div class="activity">Обед.</div></div>
+                    <div class="schedule-item"><div class="time">14:00 – 15:00</div><div class="activity">Силовая тренировка на улице.</div></div>
+                    <div class="schedule-item"><div class="time">15:00 – 17:00</div><div class="activity"><strong>Процедуры День А:</strong> Восстанавливающий массаж (20–25 мин) + урок самомассажа.</div></div>
+                    <div class="schedule-item"><div class="time">18:00 – 19:00</div><div class="activity">Ужин.</div></div>
+                    <div class="schedule-item"><div class="time">20:00 – 21:30</div><div class="activity">Общий сбор. Итоги второй недели.</div></div>
+                </div>
+            </div>
+
+            <!-- НЕДЕЛЯ 3 -->
+            <div class="week-title">Неделя 3: Трансформация (Закрепление результата)</div>
+
+            <div class="day-card">
+                <div class="day-header">День 15</div>
+                <div class="day-content">
+                    <div class="schedule-item"><div class="time">06:30 – 07:30</div><div class="activity">Подъем. Дыхательная гимнастика.</div></div>
+                    <div class="schedule-item"><div class="time">07:30 – 08:30</div><div class="activity">Завтрак.</div></div>
+                    <div class="schedule-item"><div class="time">09:30 – 11:30</div><div class="activity">Кардиотренировка.</div></div>
+                    <div class="schedule-item"><div class="time">12:00 – 13:00</div><div class="activity">Обед.</div></div>
+                    <div class="schedule-item"><div class="time">14:00 – 15:00</div><div class="activity"><strong>Процедуры День Б:</strong> БЭМ (почки, иммунитет, до 1 часа) + РЭМ.</div></div>
+                    <div class="schedule-item"><div class="time">15:30 – 17:00</div><div class="activity">Массаж + растяжка.</div></div>
+                    <div class="schedule-item"><div class="time">18:00 – 19:00</div><div class="activity">Ужин.</div></div>
+                    <div class="schedule-item"><div class="time">19:30 – 21:00</div><div class="activity">Вечер фильма.</div></div>
+                </div>
+            </div>
+
+            <div class="day-card">
+                <div class="day-header">День 16</div>
+                <div class="day-content">
+                    <div class="schedule-item"><div class="time">06:30 – 07:30</div><div class="activity">Подъем. Дыхательная гимнастика.</div></div>
+                    <div class="schedule-item"><div class="time">07:30 – 08:30</div><div class="activity">Завтрак.</div></div>
+                    <div class="schedule-item"><div class="time">09:30 – 11:00</div><div class="activity">Кардиотренировка.</div></div>
+                    <div class="schedule-item"><div class="time">12:00 – 13:00</div><div class="activity">Обед.</div></div>
+                    <div class="schedule-item"><div class="time">14:00 – 15:00</div><div class="activity">Силовая тренировка (с гантелями и фитболом).</div></div>
+                    <div class="schedule-item"><div class="time">15:00 – 17:00</div><div class="activity"><strong>Процедуры День А:</strong> ТИМ-капсула + Массаж лица FOHOW.</div></div>
+                    <div class="schedule-item"><div class="time">17:00 – 19:00</div><div class="activity">Поездка к морю. Терренкур.</div></div>
+                    <div class="schedule-item"><div class="time">19:00 – 20:00</div><div class="activity">Ужин.</div></div>
+                    <div class="schedule-item"><div class="time">20:00 – 22:00</div><div class="activity">Водные процедуры, ароматерапия.</div></div>
+                </div>
+            </div>
+
+            <div class="day-card">
+                <div class="day-header">День 17</div>
+                <div class="day-content">
+                    <div class="schedule-item"><div class="time">06:30 – 07:30</div><div class="activity">Подъем. Дыхательная гимнастика.</div></div>
+                    <div class="schedule-item"><div class="time">07:30 – 08:30</div><div class="activity">Завтрак.</div></div>
+                    <div class="schedule-item"><div class="time">09:30 – 11:00</div><div class="activity">Кардиотренировка.</div></div>
+                    <div class="schedule-item"><div class="time">12:00 – 13:00</div><div class="activity">Обед.</div></div>
+                    <div class="schedule-item"><div class="time">14:00 – 15:00</div><div class="activity"><strong>Процедуры День Б:</strong> БЭМ (открытие спины, до 1 часа) + РЭМ.</div></div>
+                    <div class="schedule-item"><div class="time">16:00 – 18:00</div><div class="activity">Функциональный тренинг на море.</div></div>
+                    <div class="schedule-item"><div class="time">18:30 – 19:30</div><div class="activity">Ужин.</div></div>
+                    <div class="schedule-item"><div class="time">20:00 – 22:00</div><div class="activity">Свободный вечер.</div></div>
+                </div>
+            </div>
+
+            <div class="day-card">
+                <div class="day-header">День 18</div>
+                <div class="day-content">
+                    <div class="schedule-item"><div class="time">06:30 – 07:30</div><div class="activity">Подъем. Дыхательная гимнастика.</div></div>
+                    <div class="schedule-item"><div class="time">07:30 – 08:30</div><div class="activity">Завтрак.</div></div>
+                    <div class="schedule-item"><div class="time">09:30 – 11:30</div><div class="activity">Кардиотренировка.</div></div>
+                    <div class="schedule-item"><div class="time">12:00 – 13:00</div><div class="activity">Обед.</div></div>
+                    <div class="schedule-item"><div class="time">14:00 – 16:00</div><div class="activity"><strong>Процедуры День А:</strong> ТИМ-капсула + SPA-уход.</div></div>
+                    <div class="schedule-item"><div class="time">16:00 – 18:00</div><div class="activity">Поездка к морю. Талассотерапия.</div></div>
+                    <div class="schedule-item"><div class="time">18:00 – 19:00</div><div class="activity">Ужин.</div></div>
+                    <div class="schedule-item"><div class="time">19:00 – 21:00</div><div class="activity">Гидротерапия.</div></div>
+                </div>
+            </div>
+
+            <div class="day-card">
+                <div class="day-header">День 19</div>
+                <div class="day-content">
+                    <div class="schedule-item"><div class="time">06:30 – 07:30</div><div class="activity">Подъем. Дыхательная гимнастика.</div></div>
+                    <div class="schedule-item"><div class="time">07:30 – 08:30</div><div class="activity">Завтрак.</div></div>
+                    <div class="schedule-item"><div class="time">09:00 – 18:00</div><div class="activity"><strong>Выездная баня на море</strong> (с обедом).</div></div>
+                    <div class="schedule-item"><div class="time">19:00 – 20:00</div><div class="activity">Ужин.</div></div>
+                    <div class="schedule-item"><div class="time">20:00 – 22:00</div><div class="activity">Свободное время.</div></div>
+                </div>
+            </div>
+
+            <div class="day-card">
+                <div class="day-header">День 20 (День контроля динамики)</div>
+                <div class="day-content">
+                    <div class="schedule-item"><div class="time">06:30 – 07:30</div><div class="activity">Подъем. Дыхательная гимнастика.</div></div>
+                    <div class="schedule-item"><div class="time">07:30 – 08:30</div><div class="activity">Завтрак.</div></div>
+                    <div class="schedule-item"><div class="time">09:30 – 12:00</div><div class="activity"><strong>Повторная диагностика.</strong> Заполнение «Паспорта здоровья» («ДО» и «ПОСЛЕ»). Анализ динамики.</div></div>
+                    <div class="schedule-item"><div class="time">12:00 – 13:00</div><div class="activity">Обед.</div></div>
+                    <div class="schedule-item"><div class="time">14:00 – 15:00</div><div class="activity"><strong>Процедуры День Б:</strong> Финальный сеанс БЭМ (до 1 часа) + РЭМ. Рекомендации по FOHOW для дома.</div></div>
+                    <div class="schedule-item"><div class="time">18:00 – 19:00</div><div class="activity">Ужин.</div></div>
+                    <div class="schedule-item"><div class="time">20:00 – 21:30</div><div class="activity">Вечерний сбор. Подведение итогов 21-дневного курса.</div></div>
+                </div>
+            </div>
+
+            <div class="final-day">
+                <h3>День 21 (Завершение и символический старт)</h3>
+                <p>С 6:00 до 21:00: ЗАВЕРШАЮЩИЙ 21-ДНЕВНЫЙ КУРС ПРОГРАММЫ «КРАСИВОЕ ТЕЛО И ЗДОРОВЬЕ».</p>
+                <p>МЫ ЗАПУСКАЕМ ПОХОД В ГОРЫ. ПРИНИМАЮТ УЧАСТИЕ В ПОХОДЕ ВСЕ — ЛЮДИ, КОТОРЫЕ РЕШИЛИ ИЗМЕНИТЬ СЕБЯ И НАЧАТЬ НОВУЮ ЖИЗНЬ ВМЕСТЕ С ИВАНОМ ВЕЗДЕНЕЦКИМ И ЕГО КОМАНДОЙ!!!</p>
+                <p style="margin-top: 1rem; font-weight: normal; font-style: italic;">Вечером: Прощальный ужин, выдача сертификатов и «Паспортов здоровья».</p>
+            </div>
+        </section>
+
+        <section id="safety" class="warning-box">
+            <h3>📌 ВАЖНЫЕ ОРГАНИЗАЦИОННЫЕ МОМЕНТЫ (ПРОТИВОПОКАЗАНИЯ)</h3>
+            <ol>
+                <li><strong>Безопасность:</strong> Программа не является медицинской услугой. Перед началом курса обязательна консультация врача при наличии хронических заболеваний. БЭМ, ТИМ и активные тренировки имеют абсолютные противопоказания (онкология, кардиостимуляторы, беременность, острые состояния).</li>
+                <li><strong>Гибкость:</strong> Если гость чувствует усталость, инструктор заменяет тренировку на дыхательную практику или отдых. Главное правило — никакого насилия над организмом, только индивидуальный подход и контроль во избежание травматизма.</li>
+            </ol>
+        </section>
+    </main>
+
+    <footer>
+        <p>© Эко-Центр «Здоровый Дом».</p>
+        <p>Разработано для системы Ивана Везденецкого.</p>
+    </footer>
+
+    <script>
+        // Скрипт для переключения тем
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeText = document.getElementById('themeText');
+        const htmlElement = document.documentElement;
+
+        // Проверяем сохраненную тему в localStorage или системные настройки
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            setTheme('dark');
+        } else {
+            setTheme('light');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            setTheme(newTheme);
+        });
+
+        function setTheme(theme) {
+            htmlElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            
+            if (theme === 'dark') {
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Светлая тема';
+            } else {
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Тёмная тема';
+            }
+        }
+    </script>
+</body>
+</html>
