@@ -9,6 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
+            /* Базовый размер шрифта (меняется через JS) */
+            --base-font-size: 16px;
+            
             /* Светлая тема */
             --bg-color: #f4f7f6;
             --text-color: #2c3e50;
@@ -54,13 +57,69 @@
             line-height: 1.6;
             margin: 0;
             padding: 0;
-            font-size: 16px;
+            font-size: var(--base-font-size); /* Привязка к переменной */
+        }
+
+        /* Верхняя панель управления (фиксированная) */
+        .toolbar {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+            background-color: var(--card-bg);
+            padding: 8px 12px;
+            border-radius: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            align-items: center;
+        }
+
+        .toolbar-group {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            border-right: 1px solid var(--border-color);
+            padding-right: 10px;
+        }
+        
+        .toolbar-group:last-child {
+            border-right: none;
+            padding-right: 0;
+            padding-left: 5px;
+        }
+
+        .tool-btn {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+            font-family: var(--font-main);
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 5px 8px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tool-btn:hover {
+            background-color: var(--border-color);
+            color: var(--primary-color);
+        }
+
+        .tool-btn.zoom-btn {
+            font-size: 1rem;
+            min-width: 32px;
         }
 
         header {
             background-color: var(--card-bg);
             box-shadow: var(--shadow);
-            padding: 2rem 1rem;
+            padding: 3rem 1rem 2rem 1rem;
             text-align: center;
             position: relative;
         }
@@ -68,44 +127,20 @@
         h1 {
             font-family: var(--font-heading);
             color: var(--primary-color);
-            font-size: 2.5rem;
+            font-size: 2.5em; /* Используем em для масштабирования от базы */
             margin-bottom: 0.5rem;
         }
 
         .subtitle {
-            font-size: 1.2rem;
+            font-size: 1.2em;
             color: var(--accent-color);
             font-weight: 600;
             margin-bottom: 1rem;
         }
 
         .address {
-            font-size: 1rem;
+            font-size: 1em;
             opacity: 0.8;
-        }
-
-        .theme-toggle {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: none;
-            border: 2px solid var(--border-color);
-            color: var(--text-color);
-            padding: 8px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-family: var(--font-main);
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .theme-toggle:hover {
-            border-color: var(--primary-color);
-            color: var(--primary-color);
         }
 
         main {
@@ -121,7 +156,7 @@
         h2 {
             font-family: var(--font-heading);
             color: var(--primary-color);
-            font-size: 2rem;
+            font-size: 2em;
             border-bottom: 2px solid var(--accent-color);
             padding-bottom: 0.5rem;
             margin-bottom: 1.5rem;
@@ -129,19 +164,20 @@
 
         h3 {
             color: var(--primary-color);
-            font-size: 1.3rem;
+            font-size: 1.4em;
             margin-top: 2rem;
             margin-bottom: 1rem;
         }
 
         h4 {
-            font-size: 1.1rem;
+            font-size: 1.1em;
             margin-bottom: 0.5rem;
             color: var(--accent-color);
         }
 
         p, ul, ol {
             margin-bottom: 1rem;
+            font-size: 1em;
         }
 
         ul {
@@ -190,7 +226,7 @@
             color: #fff;
             padding: 0.8rem 1.5rem;
             border-radius: 8px;
-            font-size: 1.4rem;
+            font-size: 1.4em;
             margin: 2rem 0 1rem 0;
             text-align: center;
         }
@@ -208,7 +244,7 @@
             background-color: var(--table-stripe);
             padding: 0.8rem 1.5rem;
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1.1em;
             color: var(--primary-color);
             border-bottom: 1px solid var(--border-color);
         }
@@ -221,6 +257,7 @@
             display: flex;
             padding: 0.5rem 0;
             border-bottom: 1px dashed var(--border-color);
+            font-size: 1em;
         }
 
         .schedule-item:last-child {
@@ -253,13 +290,13 @@
         .final-day h3 {
             color: white;
             margin-top: 0;
-            font-size: 1.5rem;
+            font-size: 1.5em;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
         .final-day p {
-            font-size: 1.2rem;
+            font-size: 1.2em;
             font-weight: 600;
             margin-bottom: 0;
         }
@@ -270,27 +307,45 @@
             background-color: var(--card-bg);
             border-top: 1px solid var(--border-color);
             margin-top: 4rem;
-            font-size: 0.9rem;
+            font-size: 0.9em;
             opacity: 0.7;
         }
 
         /* Адаптивность для мобильных */
         @media (max-width: 768px) {
-            h1 { font-size: 1.8rem; }
-            .theme-toggle { top: 10px; right: 10px; padding: 5px 10px; font-size: 0.8rem; }
+            .toolbar {
+                top: auto;
+                bottom: 20px;
+                right: 50%;
+                transform: translateX(50%);
+                box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
+            }
+            h1 { font-size: 1.8em; }
             .schedule-item { flex-direction: column; padding: 0.8rem 0; }
             .time { margin-bottom: 0.3rem; color: var(--accent-color); }
             .card, .highlight-box, .warning-box { padding: 1rem; }
             .day-content { padding: 1rem; }
+            header { padding-top: 2rem; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Фиксированная панель управления -->
+    <div class="toolbar">
+        <div class="toolbar-group" aria-label="Масштаб текста">
+            <button class="tool-btn zoom-btn" onclick="changeFontSize(-1)" title="Уменьшить текст">A-</button>
+            <button class="tool-btn" onclick="resetFontSize()" title="Сбросить масштаб">A</button>
+            <button class="tool-btn zoom-btn" onclick="changeFontSize(1)" title="Увеличить текст">A+</button>
+        </div>
+        <div class="toolbar-group">
+            <button class="tool-btn" id="themeToggle" aria-label="Переключить тему">
+                <span id="themeIcon">🌙</span> <span id="themeText" style="display:none;">Тема</span>
+            </button>
+        </div>
+    </div>
+
     <header>
-        <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">
-            <span id="themeIcon">🌙</span> <span id="themeText">Тёмная тема</span>
-        </button>
         <h1>Программа Эко-Центра «Здоровый Дом»</h1>
         <div class="subtitle">Девиз: «Работаем на результат. Мы не лечим. Мы восстанавливаем».</div>
         <div class="address">📍 Адрес: г. Сочи, Адлер, ул. Банановая, 10а</div>
@@ -680,13 +735,11 @@
     </footer>
 
     <script>
-        // Скрипт для переключения тем
+        // --- Скрипт для переключения тем ---
         const themeToggleBtn = document.getElementById('themeToggle');
         const themeIcon = document.getElementById('themeIcon');
-        const themeText = document.getElementById('themeText');
         const htmlElement = document.documentElement;
 
-        // Проверяем сохраненную тему в localStorage или системные настройки
         const savedTheme = localStorage.getItem('theme');
         const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
@@ -707,12 +760,40 @@
             localStorage.setItem('theme', theme);
             
             if (theme === 'dark') {
-                themeIcon.textContent = '☀️';
-                themeText.textContent = 'Светлая тема';
+                themeIcon.textContent = '☀️'; // Иконка солнца для переключения на светлую
             } else {
-                themeIcon.textContent = '🌙';
-                themeText.textContent = 'Тёмная тема';
+                themeIcon.textContent = '🌙'; // Иконка луны для переключения на темную
             }
+        }
+
+        // --- Скрипт для масштабирования текста ---
+        const root = document.documentElement;
+        let currentFontSize = parseInt(localStorage.getItem('fontSize')) || 16;
+        const minFontSize = 12;
+        const maxFontSize = 24;
+        const step = 2;
+
+        // Применяем сохраненный размер при загрузке
+        root.style.setProperty('--base-font-size', currentFontSize + 'px');
+
+        function changeFontSize(direction) {
+            let newSize = currentFontSize + (direction * step);
+            
+            // Ограничиваем минимальный и максимальный размер
+            if (newSize >= minFontSize && newSize <= maxFontSize) {
+                currentFontSize = newSize;
+                applyFontSize();
+            }
+        }
+
+        function resetFontSize() {
+            currentFontSize = 16;
+            applyFontSize();
+        }
+
+        function applyFontSize() {
+            root.style.setProperty('--base-font-size', currentFontSize + 'px');
+            localStorage.setItem('fontSize', currentFontSize);
         }
     </script>
 </body>
