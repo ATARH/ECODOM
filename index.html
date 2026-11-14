@@ -9,10 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Базовый размер шрифта (меняется через JS) */
             --base-font-size: 16px;
-            
-            /* Светлая тема */
             --bg-color: #f4f7f6;
             --text-color: #2c3e50;
             --primary-color: #1a5e4f;
@@ -30,7 +27,6 @@
         }
 
         [data-theme="dark"] {
-            /* Темная тема */
             --bg-color: #121815;
             --text-color: #d1d8d5;
             --primary-color: #4db6a0;
@@ -45,10 +41,7 @@
             --warning-text: #ffcc80;
         }
 
-        * {
-            box-sizing: border-box;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
+        * { box-sizing: border-box; transition: background-color 0.3s ease, color 0.3s ease; }
 
         body {
             font-family: var(--font-main);
@@ -57,10 +50,9 @@
             line-height: 1.6;
             margin: 0;
             padding: 0;
-            font-size: var(--base-font-size); /* Привязка к переменной */
+            font-size: var(--base-font-size);
         }
 
-        /* Верхняя панель управления (фиксированная) */
         .toolbar {
             position: fixed;
             top: 15px;
@@ -76,19 +68,8 @@
             align-items: center;
         }
 
-        .toolbar-group {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            border-right: 1px solid var(--border-color);
-            padding-right: 10px;
-        }
-        
-        .toolbar-group:last-child {
-            border-right: none;
-            padding-right: 0;
-            padding-left: 5px;
-        }
+        .toolbar-group { display: flex; align-items: center; gap: 5px; border-right: 1px solid var(--border-color); padding-right: 10px; }
+        .toolbar-group:last-child { border-right: none; padding-right: 0; padding-left: 5px; }
 
         .tool-btn {
             background: none;
@@ -106,224 +87,53 @@
             justify-content: center;
         }
 
-        .tool-btn:hover {
-            background-color: var(--border-color);
-            color: var(--primary-color);
-        }
+        .tool-btn:hover { background-color: var(--border-color); color: var(--primary-color); }
+        .tool-btn.zoom-btn { font-size: 1rem; min-width: 32px; }
 
-        .tool-btn.zoom-btn {
-            font-size: 1rem;
-            min-width: 32px;
-        }
+        header { background-color: var(--card-bg); box-shadow: var(--shadow); padding: 3rem 1rem 2rem 1rem; text-align: center; position: relative; }
+        h1 { font-family: var(--font-heading); color: var(--primary-color); font-size: 2.5em; margin-bottom: 0.5rem; }
+        .subtitle { font-size: 1.2em; color: var(--accent-color); font-weight: 600; margin-bottom: 1rem; }
+        .address { font-size: 1em; opacity: 0.8; }
 
-        header {
-            background-color: var(--card-bg);
-            box-shadow: var(--shadow);
-            padding: 3rem 1rem 2rem 1rem;
-            text-align: center;
-            position: relative;
-        }
+        main { max-width: 1000px; margin: 0 auto; padding: 2rem 1rem; }
+        section { margin-bottom: 3rem; }
+        h2 { font-family: var(--font-heading); color: var(--primary-color); font-size: 2em; border-bottom: 2px solid var(--accent-color); padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
+        h3 { color: var(--primary-color); font-size: 1.4em; margin-top: 2rem; margin-bottom: 1rem; }
+        h4 { font-size: 1.1em; margin-bottom: 0.5rem; color: var(--accent-color); }
+        p, ul, ol { margin-bottom: 1rem; font-size: 1em; }
+        ul { padding-left: 1.5rem; }
+        li { margin-bottom: 0.5rem; }
 
-        h1 {
-            font-family: var(--font-heading);
-            color: var(--primary-color);
-            font-size: 2.5em; /* Используем em для масштабирования от базы */
-            margin-bottom: 0.5rem;
-        }
+        .card { background-color: var(--card-bg); border-radius: 12px; padding: 1.5rem; box-shadow: var(--shadow); margin-bottom: 1.5rem; border: 1px solid var(--border-color); }
+        .highlight-box { background-color: var(--card-bg); border-left: 4px solid var(--accent-color); padding: 1.5rem; border-radius: 0 12px 12px 0; margin-bottom: 1.5rem; box-shadow: var(--shadow); }
+        .warning-box { background-color: var(--warning-bg); border-left: 4px solid var(--warning-border); padding: 1.5rem; border-radius: 0 12px 12px 0; margin-bottom: 1.5rem; color: var(--warning-text); }
+        .warning-box h3 { color: var(--warning-text); margin-top: 0; }
+        
+        .price-box { background-color: var(--card-bg); border: 2px solid var(--accent-color); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; text-align: center; }
+        .price-box .price { font-size: 2em; font-weight: 700; color: var(--primary-color); margin: 1rem 0; }
 
-        .subtitle {
-            font-size: 1.2em;
-            color: var(--accent-color);
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
+        .week-title { background-color: var(--primary-color); color: #fff; padding: 0.8rem 1.5rem; border-radius: 8px; font-size: 1.4em; margin: 2rem 0 1rem 0; text-align: center; }
+        .day-card { background-color: var(--card-bg); border-radius: 10px; margin-bottom: 1rem; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border-color); }
+        .day-header { background-color: var(--table-stripe); padding: 0.8rem 1.5rem; font-weight: 700; font-size: 1.1em; color: var(--primary-color); border-bottom: 1px solid var(--border-color); }
+        .day-content { padding: 1rem 1.5rem; }
+        .schedule-item { display: flex; padding: 0.5rem 0; border-bottom: 1px dashed var(--border-color); font-size: 1em; }
+        .schedule-item:last-child { border-bottom: none; }
+        .time { min-width: 140px; font-weight: 600; color: var(--time-color); }
+        .activity { flex: 1; }
+        .activity strong { color: var(--primary-color); }
 
-        .address {
-            font-size: 1em;
-            opacity: 0.8;
-        }
+        .final-day { background: linear-gradient(135deg, var(--primary-color), var(--accent-color)); color: white; padding: 2rem; border-radius: 12px; text-align: center; margin-top: 2rem; }
+        .final-day h3 { color: white; margin-top: 0; font-size: 1.5em; text-transform: uppercase; letter-spacing: 1px; }
+        .final-day p { font-size: 1.2em; font-weight: 600; margin-bottom: 0; }
 
-        main {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
+        footer { text-align: center; padding: 2rem; background-color: var(--card-bg); border-top: 1px solid var(--border-color); margin-top: 4rem; font-size: 0.9em; opacity: 0.7; }
 
-        section {
-            margin-bottom: 3rem;
-        }
-
-        h2 {
-            font-family: var(--font-heading);
-            color: var(--primary-color);
-            font-size: 2em;
-            border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        h3 {
-            color: var(--primary-color);
-            font-size: 1.4em;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        h4 {
-            font-size: 1.1em;
-            margin-bottom: 0.5rem;
-            color: var(--accent-color);
-        }
-
-        p, ul, ol {
-            margin-bottom: 1rem;
-            font-size: 1em;
-        }
-
-        ul {
-            padding-left: 1.5rem;
-        }
-
-        li {
-            margin-bottom: 0.5rem;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            margin-bottom: 1.5rem;
-            border: 1px solid var(--border-color);
-        }
-
-        .highlight-box {
-            background-color: var(--card-bg);
-            border-left: 4px solid var(--accent-color);
-            padding: 1.5rem;
-            border-radius: 0 12px 12px 0;
-            margin-bottom: 1.5rem;
-            box-shadow: var(--shadow);
-        }
-
-        .warning-box {
-            background-color: var(--warning-bg);
-            border-left: 4px solid var(--warning-border);
-            padding: 1.5rem;
-            border-radius: 0 12px 12px 0;
-            margin-bottom: 1.5rem;
-            color: var(--warning-text);
-        }
-
-        .warning-box h3 {
-            color: var(--warning-text);
-            margin-top: 0;
-        }
-
-        /* Стили для расписания */
-        .week-title {
-            background-color: var(--primary-color);
-            color: #fff;
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
-            font-size: 1.4em;
-            margin: 2rem 0 1rem 0;
-            text-align: center;
-        }
-
-        .day-card {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            margin-bottom: 1rem;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
-        }
-
-        .day-header {
-            background-color: var(--table-stripe);
-            padding: 0.8rem 1.5rem;
-            font-weight: 700;
-            font-size: 1.1em;
-            color: var(--primary-color);
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .day-content {
-            padding: 1rem 1.5rem;
-        }
-
-        .schedule-item {
-            display: flex;
-            padding: 0.5rem 0;
-            border-bottom: 1px dashed var(--border-color);
-            font-size: 1em;
-        }
-
-        .schedule-item:last-child {
-            border-bottom: none;
-        }
-
-        .time {
-            min-width: 140px;
-            font-weight: 600;
-            color: var(--time-color);
-        }
-
-        .activity {
-            flex: 1;
-        }
-
-        .activity strong {
-            color: var(--primary-color);
-        }
-
-        .final-day {
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            color: white;
-            padding: 2rem;
-            border-radius: 12px;
-            text-align: center;
-            margin-top: 2rem;
-        }
-
-        .final-day h3 {
-            color: white;
-            margin-top: 0;
-            font-size: 1.5em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .final-day p {
-            font-size: 1.2em;
-            font-weight: 600;
-            margin-bottom: 0;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background-color: var(--card-bg);
-            border-top: 1px solid var(--border-color);
-            margin-top: 4rem;
-            font-size: 0.9em;
-            opacity: 0.7;
-        }
-
-        /* Адаптивность для мобильных */
         @media (max-width: 768px) {
-            .toolbar {
-                top: auto;
-                bottom: 20px;
-                right: 50%;
-                transform: translateX(50%);
-                box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
-            }
+            .toolbar { top: auto; bottom: 20px; right: 50%; transform: translateX(50%); box-shadow: 0 -4px 15px rgba(0,0,0,0.1); }
             h1 { font-size: 1.8em; }
             .schedule-item { flex-direction: column; padding: 0.8rem 0; }
             .time { margin-bottom: 0.3rem; color: var(--accent-color); }
-            .card, .highlight-box, .warning-box { padding: 1rem; }
+            .card, .highlight-box, .warning-box, .price-box { padding: 1rem; }
             .day-content { padding: 1rem; }
             header { padding-top: 2rem; }
         }
@@ -331,7 +141,6 @@
 </head>
 <body>
 
-    <!-- Фиксированная панель управления -->
     <div class="toolbar">
         <div class="toolbar-group" aria-label="Масштаб текста">
             <button class="tool-btn zoom-btn" onclick="changeFontSize(-1)" title="Уменьшить текст">A-</button>
@@ -340,7 +149,7 @@
         </div>
         <div class="toolbar-group">
             <button class="tool-btn" id="themeToggle" aria-label="Переключить тему">
-                <span id="themeIcon">🌙</span> <span id="themeText" style="display:none;">Тема</span>
+                <span id="themeIcon">🌙</span>
             </button>
         </div>
     </div>
@@ -361,19 +170,19 @@
         </section>
 
         <section id="nutrition">
-            <h2>2. Организация питания и приема продукции FOHOW</h2>
+            <h2>2. Организация питания и поддержка ТКМ</h2>
             <div class="card">
-                <p><strong>Питание и нутрицевтики — это два параллельных процесса, которые дополняют друг друга!</strong></p>
+                <p><strong>Сбалансированное питание — это фундамент программы, а средства ТКМ — это катализатор процесса!</strong></p>
                 <ul>
                     <li><strong>Основное питание (3–4 раза в день):</strong> Гостям предоставляется полноценное, сбалансированное меню в эко-центре. Это свежие местные продукты, богатые белком, клетчаткой и витаминами (по принципам долгожителей Бама).</li>
-                    <li><strong>Нутрицевтическая поддержка FOHOW (в дополнение к пище):</strong> После первичной диагностики специалист назначает индивидуальную схему приема продукции. Бады принимаются <strong>во время или после еды</strong> (запивая водой), либо в перерывах между приемами пищи для регуляции клеток и организма.</li>
+                    <li><strong>Нутрициологическая поддержка ТКМ (Традиционной Китайской Медицины):</strong> После первичной диагностики специалист назначает индивидуальную схему приема натуральных средств. Они принимаются <strong>во время или после еды</strong> (запивая водой), либо в перерывах между приемами пищи для регуляции клеток и организма.</li>
                 </ul>
-                <h4>Схема приема (назначается индивидуально):</h4>
+                <h4>Примеры схемы приема (назначается индивидуально):</h4>
                 <ul>
-                    <li><em>Для очищения:</em> Эликсир «Саньцин», чай «Лювей», напиток «Fito-ChangQing».</li>
-                    <li><em>Для восстановления клеток и энергии:</em> Капсулы «Молодость Плюс», эликсир «Три драгоценности», эликсир «Феникс».</li>
-                    <li><em>Для поддержки сосудов:</em> Капсулы «Сюэчинфу».</li>
-                    <li><em>Для микрофлоры:</em> Пробиотики «Active ProBio».</li>
+                    <li><em>Для очищения и детокса:</em> Эликсиры и фиточаи на основе трав.</li>
+                    <li><em>Для восстановления клеток и энергии:</em> Пептидные комплексы и эликсиры.</li>
+                    <li><em>Для поддержки сосудов:</em> Капсулы на основе экстрактов.</li>
+                    <li><em>Для микрофлоры:</em> Пробиотические комплексы.</li>
                 </ul>
             </div>
         </section>
@@ -385,9 +194,9 @@
                     <li><strong>ГРВ-скрининг:</strong> оценка психоэмоционального и физиологического состояния.</li>
                     <li><strong>Капилляроскоп:</strong> оценка микромира капилляров (увеличение 380х).</li>
                     <li><strong>Ангиоскан:</strong> анализ жесткости сосудов и артериального давления.</li>
-                    <li><strong>Биоимпеданс FOHOW:</strong> полный анализ состава тела (жир, мышцы, вода, висцеральный жир).</li>
+                    <li><strong>Биоимпеданс:</strong> полный анализ состава тела (жир, мышцы, вода, висцеральный жир).</li>
                 </ul>
-                <p><em>По итогам:</em> Составляется «Паспорт здоровья» и индивидуальный протокол питания, тренировок и процедур.</p>
+                <p><em>По итогам:</em> Составляется «Паспорт здоровья» и индивидуальный протокол питания, тренировок и процедур ТКМ.</p>
             </div>
         </section>
 
@@ -399,7 +208,7 @@
                     <li><strong>Через день (по расписанию):</strong>
                         <ul>
                             <li><em>День А:</em> Мануальные и аппаратные процедуры (массажи, ТИМ-капсула, SPA-уходы).</li>
-                            <li><em>День Б:</em> Аппараты компании FOHOW (БЭМ — Биоэнергомассажер, РЭМ — ручной энергомассаж, остеопатия). <strong>Важно: сеанс БЭМ длится до 1 часа.</strong></li>
+                            <li><em>День Б:</em> Аппаратные методики ТКМ (БЭМ — Биоэнергомассажер, РЭМ — ручной энергомассаж, остеопатия). <strong>Важно: сеанс БЭМ длится до 1 часа.</strong></li>
                         </ul>
                     </li>
                 </ul>
@@ -430,11 +239,39 @@
             </div>
         </section>
 
+        <section id="pricing">
+            <h2>6. Стоимость программы и экономическое обоснование</h2>
+            <div class="price-box">
+                <h3>Инвестиция в здоровье: от 250 000 ₽ до 400 000 ₽</h3>
+                <div class="price">за 21 день (все включено)</div>
+                <p style="text-align: left; margin-top: 1.5rem;">Стоимость варьируется в зависимости от категории номера и индивидуального набора назначенных процедур ТКМ.</p>
+            </div>
+            <div class="card">
+                <h4>Сравнение с рынком (Сочи, Адлер, 2026 г.):</h4>
+                <ul>
+                    <li>Проживание с 3-разовым питанием в эко-отеле: <strong>1 800 – 3 100 ₽/ночь</strong>.</li>
+                    <li>Полноценные санаторные туры с лечением: <strong>от 7 900 ₽/ночь</strong>.</li>
+                    <li>Короткие фитнес- и велнес-туры (5–7 дней): <strong>от 75 000 ₽</strong> (около 10 000 – 15 000 ₽ в день).</li>
+                </ul>
+                <h4>Что входит в стоимость нашей программы:</h4>
+                <ul>
+                    <li>Проживание в эко-центре (21 день) и 4-разовое сбалансированное питание.</li>
+                    <li>Углубленная диагностика (ГРВ, Биоимпеданс, Ангиоскан) до и после курса.</li>
+                    <li>Ежедневные тренировки, кардио, дыхательные гимнастики и растяжка.</li>
+                    <li>Полный курс процедур (БЭМ, РЭМ, ТИМ, массажи, SPA, остеопатия).</li>
+                    <li>Назначение и сопровождение по приему средств ТКМ.</li>
+                    <li>Выездные мероприятия (баня на море, экскурсии, терренкур).</li>
+                    <li>Киносъемка 24/7 и итоговый фильм о трансформации.</li>
+                </ul>
+                <p><em>Итог: 21-дневная комплексная программа «под ключ» с проживанием, питанием, ежедневным контролем специалистов и съемками является уникальным премиальным продуктом, что полностью оправдывает указанный ценовой диапазон.</em></p>
+            </div>
+        </section>
+
         <section id="roadmap">
             <h2>Дорожная карта 21 дня</h2>
 
-            <!-- НЕДЕЛЯ 1 -->
-            <div class="week-title">Неделя 1: Очищение и адаптация (Запуск)</div>
+            <!-- НЕДЕЛЯ 1: РЕГУЛЯЦИЯ -->
+            <div class="week-title">Неделя 1: Регуляция (Настройка и адаптация)</div>
             
             <div class="day-card">
                 <div class="day-header">День 1 (День заезда)</div>
@@ -443,7 +280,7 @@
                     <div class="schedule-item"><div class="time">14:00 – 15:00</div><div class="activity">Обед.</div></div>
                     <div class="schedule-item"><div class="time">15:00 – 17:30</div><div class="activity">Первичная диагностика (ГРВ, Биоимпеданс). Знакомство с центром.</div></div>
                     <div class="schedule-item"><div class="time">18:00 – 19:00</div><div class="activity">Ужин.</div></div>
-                    <div class="schedule-item"><div class="time">19:30 – 21:00</div><div class="activity">Ознакомительная встреча. Представление программы, выдача индивидуальных схем приема FOHOW.</div></div>
+                    <div class="schedule-item"><div class="time">19:30 – 21:00</div><div class="activity">Ознакомительная встреча. Представление программы, выдача индивидуальных схем питания и средств ТКМ.</div></div>
                 </div>
             </div>
 
@@ -483,7 +320,7 @@
                     <div class="schedule-item"><div class="time">07:30 – 08:30</div><div class="activity">Завтрак.</div></div>
                     <div class="schedule-item"><div class="time">09:30 – 11:00</div><div class="activity">Кардиотренировка.</div></div>
                     <div class="schedule-item"><div class="time">12:00 – 13:00</div><div class="activity">Обед.</div></div>
-                    <div class="schedule-item"><div class="time">14:00 – 16:00</div><div class="activity"><strong>Процедуры День А:</strong> Массаж лица FOHOW + ТИМ-капсула.</div></div>
+                    <div class="schedule-item"><div class="time">14:00 – 16:00</div><div class="activity"><strong>Процедуры День А:</strong> Массаж лица + ТИМ-капсула.</div></div>
                     <div class="schedule-item"><div class="time">16:00 – 17:30</div><div class="activity">Силовая тренировка на улице (до 1 часа).</div></div>
                     <div class="schedule-item"><div class="time">18:00 – 19:00</div><div class="activity">Ужин.</div></div>
                     <div class="schedule-item"><div class="time">19:30 – 21:30</div><div class="activity">Мотивационный фильм.</div></div>
@@ -530,8 +367,8 @@
                 </div>
             </div>
 
-            <!-- НЕДЕЛЯ 2 -->
-            <div class="week-title">Неделя 2: Регуляция и укрепление (Повышение нагрузки)</div>
+            <!-- НЕДЕЛЯ 2: ОЧИЩЕНИЕ -->
+            <div class="week-title">Неделя 2: Очищение (Детоксикация и укрепление)</div>
 
             <div class="day-card">
                 <div class="day-header">День 8</div>
@@ -554,7 +391,7 @@
                     <div class="schedule-item"><div class="time">07:30 – 08:30</div><div class="activity">Завтрак.</div></div>
                     <div class="schedule-item"><div class="time">09:30 – 11:00</div><div class="activity">Кардиотренировка.</div></div>
                     <div class="schedule-item"><div class="time">12:00 – 13:00</div><div class="activity">Обед.</div></div>
-                    <div class="schedule-item"><div class="time">14:00 – 16:00</div><div class="activity"><strong>Процедуры День А:</strong> ТИМ-капсула + Массаж лица FOHOW (увеличение времени процедур по показаниям).</div></div>
+                    <div class="schedule-item"><div class="time">14:00 – 16:00</div><div class="activity"><strong>Процедуры День А:</strong> ТИМ-капсула + Массаж лица (увеличение времени процедур по показаниям).</div></div>
                     <div class="schedule-item"><div class="time">16:30 – 18:30</div><div class="activity">Поездка к морю. Тренировка на берегу.</div></div>
                     <div class="schedule-item"><div class="time">19:00 – 20:00</div><div class="activity">Ужин.</div></div>
                     <div class="schedule-item"><div class="time">20:00 – 21:30</div><div class="activity">Беседа на тему здоровья и успеха.</div></div>
@@ -628,8 +465,8 @@
                 </div>
             </div>
 
-            <!-- НЕДЕЛЯ 3 -->
-            <div class="week-title">Неделя 3: Трансформация (Закрепление результата)</div>
+            <!-- НЕДЕЛЯ 3: ВОССТАНОВЛЕНИЕ -->
+            <div class="week-title">Неделя 3: Восстановление (Трансформация и закрепление)</div>
 
             <div class="day-card">
                 <div class="day-header">День 15</div>
@@ -653,7 +490,7 @@
                     <div class="schedule-item"><div class="time">09:30 – 11:00</div><div class="activity">Кардиотренировка.</div></div>
                     <div class="schedule-item"><div class="time">12:00 – 13:00</div><div class="activity">Обед.</div></div>
                     <div class="schedule-item"><div class="time">14:00 – 15:00</div><div class="activity">Силовая тренировка (с гантелями и фитболом).</div></div>
-                    <div class="schedule-item"><div class="time">15:00 – 17:00</div><div class="activity"><strong>Процедуры День А:</strong> ТИМ-капсула + Массаж лица FOHOW.</div></div>
+                    <div class="schedule-item"><div class="time">15:00 – 17:00</div><div class="activity"><strong>Процедуры День А:</strong> ТИМ-капсула + Массаж лица.</div></div>
                     <div class="schedule-item"><div class="time">17:00 – 19:00</div><div class="activity">Поездка к морю. Терренкур.</div></div>
                     <div class="schedule-item"><div class="time">19:00 – 20:00</div><div class="activity">Ужин.</div></div>
                     <div class="schedule-item"><div class="time">20:00 – 22:00</div><div class="activity">Водные процедуры, ароматерапия.</div></div>
@@ -706,7 +543,7 @@
                     <div class="schedule-item"><div class="time">07:30 – 08:30</div><div class="activity">Завтрак.</div></div>
                     <div class="schedule-item"><div class="time">09:30 – 12:00</div><div class="activity"><strong>Повторная диагностика.</strong> Заполнение «Паспорта здоровья» («ДО» и «ПОСЛЕ»). Анализ динамики.</div></div>
                     <div class="schedule-item"><div class="time">12:00 – 13:00</div><div class="activity">Обед.</div></div>
-                    <div class="schedule-item"><div class="time">14:00 – 15:00</div><div class="activity"><strong>Процедуры День Б:</strong> Финальный сеанс БЭМ (до 1 часа) + РЭМ. Рекомендации по FOHOW для дома.</div></div>
+                    <div class="schedule-item"><div class="time">14:00 – 15:00</div><div class="activity"><strong>Процедуры День Б:</strong> Финальный сеанс БЭМ (до 1 часа) + РЭМ. Индивидуальные рекомендации на дом.</div></div>
                     <div class="schedule-item"><div class="time">18:00 – 19:00</div><div class="activity">Ужин.</div></div>
                     <div class="schedule-item"><div class="time">20:00 – 21:30</div><div class="activity">Вечерний сбор. Подведение итогов 21-дневного курса.</div></div>
                 </div>
@@ -730,12 +567,11 @@
     </main>
 
     <footer>
-        <p>© Эко-Центр «Здоровый Дом».</p>
-        <p>Разработано для системы Ивана Везденецкого.</p>
+        <p>© Эко-Центр «Здоровый Дом». Программа оздоровительного курса.</p>
+        <p>Разработано по авторской системе Ивана Везденецкого.</p>
     </footer>
 
     <script>
-        // --- Скрипт для переключения тем ---
         const themeToggleBtn = document.getElementById('themeToggle');
         const themeIcon = document.getElementById('themeIcon');
         const htmlElement = document.documentElement;
@@ -758,28 +594,19 @@
         function setTheme(theme) {
             htmlElement.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
-            
-            if (theme === 'dark') {
-                themeIcon.textContent = '☀️'; // Иконка солнца для переключения на светлую
-            } else {
-                themeIcon.textContent = '🌙'; // Иконка луны для переключения на темную
-            }
+            themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
         }
 
-        // --- Скрипт для масштабирования текста ---
         const root = document.documentElement;
         let currentFontSize = parseInt(localStorage.getItem('fontSize')) || 16;
         const minFontSize = 12;
         const maxFontSize = 24;
         const step = 2;
 
-        // Применяем сохраненный размер при загрузке
         root.style.setProperty('--base-font-size', currentFontSize + 'px');
 
         function changeFontSize(direction) {
             let newSize = currentFontSize + (direction * step);
-            
-            // Ограничиваем минимальный и максимальный размер
             if (newSize >= minFontSize && newSize <= maxFontSize) {
                 currentFontSize = newSize;
                 applyFontSize();
